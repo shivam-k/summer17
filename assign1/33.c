@@ -10,16 +10,13 @@ typedef struct node
 
 void printlist(node *n)
 {
-	if(n==NULL)
-		return;
-	else
+	while(n!=NULL)
 	{
-		node *ptr;
-		ptr=n->next;
-		printlist(ptr);
+		printf("%d ", n->data);
+		n=n->next;	
 	}
-	printf("%d ", n->data);
 }
+
 
 int main()
 {
@@ -38,7 +35,23 @@ int main()
 		scanf("%d", &(i->data));
 	}
 	i->next=NULL;
-	printf("\nAll elements in reverse order: ");
+	printf("\nOriginal list: ");
 	printlist(head->next);
+
+	node *douba, *j;
+	douba=(node*)malloc(sizeof(node));
+	i=head->next;
+	j=douba;
+	j->next=(node*)malloc(sizeof(node));
+	j=j->next;
+	while(i!=NULL)
+	{
+		j->next=(node*)malloc(sizeof(node));
+		j->data=i->data*2;
+		j=j->next;
+		i=i->next;
+	}
+	printf("\nDoubled list: \n");
+	printlist(douba->next);
 	printf("\n");
 }
