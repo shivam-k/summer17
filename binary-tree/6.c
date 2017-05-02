@@ -70,15 +70,30 @@ node* construct()
 	return k;
 }
 
-void pt(node *head)
+void AnyChildIsEven(node *head)
 {
 	int t;
 	if(head!=NULL)
 	{
-		pt(head->left);
-		printf("%d, ", head->data);
-		pt(head->right);
-		//t=head->data;
+		AnyChildIsEven(head->left);
+		AnyChildIsEven(head->right);
+		if(head->left!=NULL && (head->left)->data%2==0)
+			printf("%d, ", head->data);
+		else if(head->right!=NULL && (head->right)->data%2==0)
+			printf("%d, ", head->data);
+	}
+}
+
+void depth(node *head, int k)
+{
+	int t=0;
+	if(head!=NULL)
+	{	
+		
+		depth(head->left, k--);
+		depth(head->right, k--);
+
+		printf("%d-%d ", k, head->data);
 	}
 }
 
@@ -100,6 +115,6 @@ int main()
 {
 	node *root;
 	root=construct();
-	pt(root);
+	depth(root, 3);
 	printf("\n");
 }

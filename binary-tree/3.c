@@ -70,15 +70,15 @@ node* construct()
 	return k;
 }
 
-void pt(node *head)
+void leaf(node *head)
 {
 	int t;
 	if(head!=NULL)
 	{
-		pt(head->left);
-		printf("%d, ", head->data);
-		pt(head->right);
-		//t=head->data;
+		leaf(head->left);
+		leaf(head->right);
+		if(head->left!=NULL && head->right!=NULL)
+			printf("%d, ", head->data);
 	}
 }
 
@@ -100,6 +100,6 @@ int main()
 {
 	node *root;
 	root=construct();
-	pt(root);
+	leaf(root);
 	printf("\n");
 }

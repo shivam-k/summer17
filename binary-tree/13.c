@@ -70,36 +70,46 @@ node* construct()
 	return k;
 }
 
-void pt(node *head)
+void AnyChildIsEven(node *head)
 {
 	int t;
 	if(head!=NULL)
 	{
-		pt(head->left);
-		printf("%d, ", head->data);
-		pt(head->right);
-		//t=head->data;
+		AnyChildIsEven(head->left);
+		AnyChildIsEven(head->right);
+		if(head->left!=NULL && (head->left)->data%2==0)
+			printf("%d, ", head->data);
+		else if(head->right!=NULL && (head->right)->data%2==0)
+			printf("%d, ", head->data);
 	}
 }
 
-int sum(node *k)
+int mx(int a, int b)
 {
-	int a, b, c;
+	return (a>b?a:b);
+}
+int max(node *k)
+{
+	int a, b;
 	if(k==NULL)
 		return 0;
 	else
 	{
-		a=sum(k->left);
-		b=sum(k->right);
-		c=k->data;
-		return a+b+c;
+		a=max(k->left);
+		b=max(k->right);
+		printf("%d %d %d\n", a, b, k->data);
+		if(a>b)
+			return a+1;
+		else
+			return b+1;
 	}
 }
+
 
 int main()
 {
 	node *root;
 	root=construct();
-	pt(root);
+	printf("%d", max(root));
 	printf("\n");
 }

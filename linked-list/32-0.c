@@ -8,6 +8,7 @@ typedef struct node
 	struct node *next;
 }node;
 
+//have used recursion to print
 void printlist(node *n)
 {
 	if(n==NULL)
