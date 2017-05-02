@@ -84,30 +84,18 @@ void AnyChildIsEven(node *head)
 	}
 }
 
-void depth(node *head, int k)
+void depth(node *head, int k, int x)
 {
 	int t=0;
-	if(head!=NULL)
-	{	
-		
-		depth(head->left, k--);
-		depth(head->right, k--);
-
-		printf("%d-%d ", k, head->data);
-	}
-}
-
-int sum(node *k)
-{
-	int a, b, c;
-	if(k==NULL)
-		return 0;
+	if(head==NULL)
+		return;
 	else
-	{
-		a=sum(k->left);
-		b=sum(k->right);
-		c=k->data;
-		return a+b+c;
+	{	
+		k++;
+		depth(head->left, k, x);
+		depth(head->right, k, x);
+		if(k==x)
+			printf("%d ", head->data);
 	}
 }
 
@@ -115,6 +103,6 @@ int main()
 {
 	node *root;
 	root=construct();
-	depth(root, 3);
+	depth(root, -1, 3);
 	printf("\n");
 }

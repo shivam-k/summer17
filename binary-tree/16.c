@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <malloc.h>
 
-int mx=0;
-
 typedef struct node
 {
 	int data;
@@ -72,44 +70,40 @@ node* construct()
 	return k;
 }
 
-void AnyChildIsEven(node *head)
+int GiveFather(node *head, int k)
 {
-	int t;
-	if(head!=NULL)
-	{
-		AnyChildIsEven(head->left);
-		AnyChildIsEven(head->right);
-		if(head->left!=NULL && (head->left)->data%2==0)
-			printf("%d, ", head->data);
-		else if(head->right!=NULL && (head->right)->data%2==0)
-			printf("%d, ", head->data);
-	}
-}
-
-int max(node *k)
-{
-	int a, b;
-	if(k==NULL)
+	int a, b, c;
+	if(head==NULL)
 		return 0;
 	else
 	{
-		a=max(k->left);
-		b=max(k->right);
-		int temp=k->data;
-		int mx=a>b?a:b;
-		if(temp>mx)
-			mx=temp;
-		return mx;
-	}	
-
+		if(head->left!=NULL && (head->left)->data==k)
+			return head->data;
+		else if(head->right!=NULL && (head->right)->data==k)
+			return head->data;
+		else
+		{
+			a=GiveFather(head->left, k);
+			b=GiveFather(head->right, k);
+			if(b>a)
+				a=b;
+			printf("%d\n", a);
+			return a;
+		}
+	}
+	//printf("%d\n", a);
 }
-
 
 int main()
 {
 	node *root;
 	root=construct();
-	int t=max(root);
-	printf("%d", t);
-	printf("\n");
+	int k;
+	scanf("%d", &k);
+	int x=0;
+	x=GiveFather(root, k);
+	if(x==0)
+		printf("-1\n");
+	else
+		printf("%d\n", x);
 }

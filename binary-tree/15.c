@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <malloc.h>
 
-int mx=0;
-
 typedef struct node
 {
 	int data;
@@ -86,30 +84,33 @@ void AnyChildIsEven(node *head)
 	}
 }
 
-int max(node *k)
+void SumSons(node *k, int x)
 {
-	int a, b;
+	int a=0, b=0, c=0;
 	if(k==NULL)
-		return 0;
+		return;
 	else
 	{
-		a=max(k->left);
-		b=max(k->right);
-		int temp=k->data;
-		int mx=a>b?a:b;
-		if(temp>mx)
-			mx=temp;
-		return mx;
-	}	
+		SumSons(k->left, x);
+		SumSons(k->right, x);
+		if(k->data==x)
+		{
+			if(k->left!=NULL)
+				a=(k->left)->data;		
+			if(k->right!=NULL)
+				b=(k->right)->data;
+			printf("%d\n", c=a+b); 
+		}
 
+	}
 }
-
 
 int main()
 {
 	node *root;
 	root=construct();
-	int t=max(root);
-	printf("%d", t);
+	int x;
+	scanf("%d", &x); //value of node
+	SumSons(root, x);
 	printf("\n");
 }
