@@ -70,28 +70,25 @@ node* construct()
 	return k;
 }
 
-int GiveFather(node *head, int k)
+int FirstEven(node *head)
 {
-	int a, b, c;
+	int a=0, b=0, c=0;
 	if(head==NULL)
-		return -1;
+		return 0;
 	else
 	{
-		if(head->left!=NULL && (head->left)->data==k)
+		a=FirstEven(head->left);
+		b=FirstEven(head->right);
+		if(head->data%2==0)
 			return head->data;
-		else if(head->right!=NULL && (head->right)->data==k)
-			return head->data;
-		else
-		{
-			a=GiveFather(head->left, k);
-			b=GiveFather(head->right, k);
-			if(b>a)
-				a=b;
-			//printf("%d\n", a);
+		else if(a%2==0 && a!=0)
 			return a;
-		}
+		else if(b%2==0 && b!=0)
+			return b;
+		else
+			return 0;
+
 	}
-	//printf("%d\n", a);
 }
 
 int main()
@@ -99,9 +96,9 @@ int main()
 	node *root;
 	root=construct();
 	int k;
-	scanf("%d", &k);
+	//scanf("%d", &k);
 	int x=0;
-	x=GiveFather(root, k);
+	x=FirstEven(root);
 	if(x==0)
 		printf("-1\n");
 	else

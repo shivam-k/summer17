@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <malloc.h>
 
+int mx=0;
+
 typedef struct node
 {
 	int data;
@@ -70,40 +72,36 @@ node* construct()
 	return k;
 }
 
-int GiveFather(node *head, int k)
+node* max_ptr(node *k)
 {
-	int a, b, c;
-	if(head==NULL)
-		return -1;
+	node *a, *b;
+	if(k==NULL)
+		return NULL;
 	else
 	{
-		if(head->left!=NULL && (head->left)->data==k)
-			return head->data;
-		else if(head->right!=NULL && (head->right)->data==k)
-			return head->data;
-		else
-		{
-			a=GiveFather(head->left, k);
-			b=GiveFather(head->right, k);
-			if(b>a)
-				a=b;
-			//printf("%d\n", a);
-			return a;
-		}
-	}
-	//printf("%d\n", a);
+		a=max_ptr(k->left);
+		b=max_ptr(k->right);
+		node *temp=k, *mx;
+		mx=NULL;
+		//node *mx=a->data>b->data?a->data:b->data;
+		if(a!=NULL)
+			mx=a;
+		// else if(b!=NULL)
+		// 	if(b->data>mx->data)
+		// 		mx=b;
+		if(temp->data>mx->data)
+			mx=temp;
+		printf("%d\n", mx->data);
+		return mx;
+	}	
+
 }
 
 int main()
 {
 	node *root;
 	root=construct();
-	int k;
-	scanf("%d", &k);
-	int x=0;
-	x=GiveFather(root, k);
-	if(x==0)
-		printf("-1\n");
-	else
-		printf("%d\n", x);
+	node *t=max_ptr(root);
+	printf("%d", t->data);
+	printf("\n");
 }

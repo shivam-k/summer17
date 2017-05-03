@@ -72,7 +72,7 @@ node* construct()
 
 int BiggestEven(node *head)
 {
-	int a, b, c;
+	int a=0, b=0, c=0;
 	if(head==NULL)
 		return 0;
 	else
@@ -81,15 +81,19 @@ int BiggestEven(node *head)
 		b=BiggestEven(head->right);
 
 		if(a%2==0)
+			a=a;
+		if(b%2==0)
+			b=b;
+		if(head->data%2==0)
+			c=head->data;
+		if(b>a)
+			a=b;
+		if(c>a)
+			a=c;
+		//printf("%d\n", a);
+		return a;
 
 	}
-	if(b>a)
-		a=b;
-	if(c>a)
-		a=c;
-
-	//printf("%d\n", a);
-	return a;
 }
 
 int main()
@@ -97,11 +101,11 @@ int main()
 	node *root;
 	root=construct();
 	int k;
-	scanf("%d", &k);
+	//scanf("%d", &k);
 	int x=0;
 	x=BiggestEven(root);
-	if(x!=0)
-		printf("%d\n", x);
-	else
+	if(x==0)
 		printf("-1\n");
+	else
+		printf("%d\n", x);
 }

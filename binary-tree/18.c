@@ -63,45 +63,56 @@ node* construct()
 	j->right=g;
 
 	k=(node*)malloc(sizeof(node));
-	k->data=17;
+	k->data=2;
 	k->left=i;
 	k->right=j;
 
 	return k;
 }
 
-int GiveFather(node *head, int k)
+int SmallestEven(node *head)
 {
-	int a, b, c;
+	int a=0, b=0, c=0;
 	if(head==NULL)
-		return -1;
+		return 0;
 	else
 	{
-		if(head->left!=NULL && (head->left)->data==k)
-			return head->data;
-		else if(head->right!=NULL && (head->right)->data==k)
-			return head->data;
-		else
+		a=SmallestEven(head->left);
+		b=SmallestEven(head->right);
+
+		if(a%2==0 && a!=0)
 		{
-			a=GiveFather(head->left, k);
-			b=GiveFather(head->right, k);
-			if(b>a)
-				a=b;
-			//printf("%d\n", a);
-			return a;
+			if(b%2==0 && b!=0)
+				c=a<b?a:b;
+			else
+				c=a;
 		}
+		else if(b%2==0 && b!=0)
+			c=b;
+		else
+			c=0;
+		if(head->data%2==0)
+		{
+			if(c==0)
+				c=head->data;
+			else
+			{
+				if(head->data<c)
+					c=head->data;
+			}
+		}
+		printf("%d\n", c);
+		return c;
+
 	}
-	//printf("%d\n", a);
 }
 
 int main()
 {
 	node *root;
 	root=construct();
-	int k;
-	scanf("%d", &k);
 	int x=0;
-	x=GiveFather(root, k);
+	x=SmallestEven(root);
 	if(x==0)
 		printf("-1\n");
 	else
