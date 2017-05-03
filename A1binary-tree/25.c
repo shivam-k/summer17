@@ -72,30 +72,24 @@ node* construct()
 	return k;
 }
 
-int weight(node *head, int k, int x, int y)
+int weight(node *head, int k, int x)
 {
 	int a=0, b=0;
 	if(head==NULL)
-		return x;
+		return 0;
 	else
 	{
 		if(head->data==k)
-			y=1;
-		int y1=x;
-		if(y==1)
-		{
-			//printf("%d %d %d\n", x, y, head->data);
-			++y1;
-		}
-		a=weight(head->left, k, y1, y);
-		int y2=x;
-		if(y==1)
-			++y2;
-		b=weight(head->right, k, y2, y);
-		
-		//printf("%d %d %d\n", a, b, head->data);
+			x=1;
+		a=weight(head->left, k, x);
 
-		return a;
+		b=weight(head->right, k, x);
+
+		//printf("%d %d %d\n", a, b, head->data);
+		if(x==1)
+			return a+b+head->data;
+		else
+			return a+b;
 	}
 }
 
@@ -105,7 +99,7 @@ int main()
 	root=construct();
 	int k;
 	scanf("%d", &k);
-	int t=weight(root, k, 0, 0);
+	int t=weight(root, k, 0);
 	printf("%d", t);
 	printf("\n");
 }
