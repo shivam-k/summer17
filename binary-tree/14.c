@@ -13,6 +13,11 @@ typedef struct node
 node* construct()
 {
 	node *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m, *n;
+
+	// l=(node*)malloc(sizeof(node));
+	// l->data=8;
+	// l->left=NULL;
+	// l->right=NULL;
 	
 	a=(node*)malloc(sizeof(node));
 	a->data=61;
@@ -72,46 +77,45 @@ node* construct()
 	return k;
 }
 
-node* max_ptr(node *k)
+void AnyChildIsEven(node *head)
 {
-	node *a, *b;
-	if(k==NULL)
-		return NULL;
+	int t;
+	if(head!=NULL)
+	{
+		AnyChildIsEven(head->left);
+		AnyChildIsEven(head->right);
+		if(head->left!=NULL && (head->left)->data%2==0)
+			printf("%d, ", head->data);
+		else if(head->right!=NULL && (head->right)->data%2==0)
+			printf("%d, ", head->data);
+	}
+}
+
+int HeightOfTree(node *head)
+{
+	int a, b;
+	if(head==NULL)
+		return 0;
 	else
 	{
-		a=max_ptr(k->left);
-		b=max_ptr(k->right);
-		node *temp=k, *mx;
-		mx=NULL;
-		
-		if(a!=NULL)
-			mx=a;
+		a=HeightOfTree(head->left);
+		b=HeightOfTree(head->right);
 
-		if(mx==NULL)
-			mx=b;
-		else if(mx!=NULL && b!=NULL)
-		{
-			if(b->data>mx->data)
-				mx=b;
-		}
-		if(mx==NULL)
-			mx=temp;
-		else if(mx!=NULL && temp!=NULL)
-		{
-			if(temp->data>mx->data)
-				mx=temp;
-		}
-		//printf("%d\n", mx->data);
-		return mx;
-	}	
-
+		//printf("%d\n", head->data);
+		a=a+1;
+		b=b+1;
+		if(b>a)
+			a=b;
+		//printf("%d %d %d\n", a, b, head->data);
+		return a;
+	}
 }
 
 int main()
 {
 	node *root;
 	root=construct();
-	node *t=max_ptr(root);
-	printf("%d", t->data);
+	int t=HeightOfTree(root);
+	printf("%d", --t);
 	printf("\n");
 }

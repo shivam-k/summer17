@@ -13,7 +13,7 @@ typedef struct node
 node* construct()
 {
 	node *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m, *n;
-	
+
 	a=(node*)malloc(sizeof(node));
 	a->data=61;
 	a->left=NULL;
@@ -72,46 +72,28 @@ node* construct()
 	return k;
 }
 
-node* max_ptr(node *k)
+void LeftChild(node *head, int k)
 {
-	node *a, *b;
-	if(k==NULL)
-		return NULL;
+	if(head==NULL)
+		return;
 	else
 	{
-		a=max_ptr(k->left);
-		b=max_ptr(k->right);
-		node *temp=k, *mx;
-		mx=NULL;
-		
-		if(a!=NULL)
-			mx=a;
+		LeftChild(head->left, k);
+		LeftChild(head->right, k);
 
-		if(mx==NULL)
-			mx=b;
-		else if(mx!=NULL && b!=NULL)
-		{
-			if(b->data>mx->data)
-				mx=b;
-		}
-		if(mx==NULL)
-			mx=temp;
-		else if(mx!=NULL && temp!=NULL)
-		{
-			if(temp->data>mx->data)
-				mx=temp;
-		}
-		//printf("%d\n", mx->data);
-		return mx;
-	}	
-
+		if(head->data==k && head->left!=NULL)
+			printf("%d", (head->left)->data);
+		else if(head->data==k && head->left==NULL)
+			printf("NULL");
+	}
 }
 
 int main()
 {
 	node *root;
 	root=construct();
-	node *t=max_ptr(root);
-	printf("%d", t->data);
+	int k;
+	scanf("%d", &k);
+	LeftChild(root, k);
 	printf("\n");
 }

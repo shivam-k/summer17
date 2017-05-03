@@ -13,7 +13,7 @@ typedef struct node
 node* construct()
 {
 	node *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m, *n;
-	
+
 	a=(node*)malloc(sizeof(node));
 	a->data=61;
 	a->left=NULL;
@@ -72,46 +72,32 @@ node* construct()
 	return k;
 }
 
-node* max_ptr(node *k)
+int HeightOfTree(node *head)
 {
-	node *a, *b;
-	if(k==NULL)
-		return NULL;
+	int a, b;
+	if(head==NULL)
+		return 0;
 	else
 	{
-		a=max_ptr(k->left);
-		b=max_ptr(k->right);
-		node *temp=k, *mx;
-		mx=NULL;
-		
-		if(a!=NULL)
-			mx=a;
+		a=HeightOfTree(head->left);
+		b=HeightOfTree(head->right);
 
-		if(mx==NULL)
-			mx=b;
-		else if(mx!=NULL && b!=NULL)
-		{
-			if(b->data>mx->data)
-				mx=b;
-		}
-		if(mx==NULL)
-			mx=temp;
-		else if(mx!=NULL && temp!=NULL)
-		{
-			if(temp->data>mx->data)
-				mx=temp;
-		}
-		//printf("%d\n", mx->data);
-		return mx;
-	}	
-
+		//printf("%d\n", head->data);
+		a=a+1;
+		b=b+1;
+		if(b>a)
+			a=b;
+		if(a==2)
+			printf("%d %d %d\n", a, b, head->data);
+		return a;
+	}
 }
 
 int main()
 {
 	node *root;
 	root=construct();
-	node *t=max_ptr(root);
-	printf("%d", t->data);
+	int t=HeightOfTree(root);
+	printf("%d", --t);
 	printf("\n");
 }
