@@ -13,11 +13,6 @@ typedef struct node
 node* construct()
 {
 	node *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m, *n;
-
-	// l=(node*)malloc(sizeof(node));
-	// l->data=8;
-	// l->left=NULL;
-	// l->right=NULL;
 	
 	a=(node*)malloc(sizeof(node));
 	a->data=61;
@@ -77,21 +72,24 @@ node* construct()
 	return k;
 }
 
-int depth(node *head, int k)
+int depth(node *head, int k, int x)
 {
-	int a, b;
+	int a=0, b=0;
 	if(head==NULL)
 		return 0;
+	else if(head->data==k)
+		return x;
 	else
 	{
-		if(head->data==k)
-			return 0;
-		a=depth(head->left, k);
-		b=depth(head->right, k);
-		if(b==0)
-			return a=a+1;
-		if(a==0)
-		return b=b+1;
+		int y1=x;
+		a=depth(head->left, k, ++y1);
+		if(a!=0)
+			return a;
+		int y2=x;
+		b=depth(head->right, k, ++y2);
+		if(b!=0)
+			return b;
+		return 0;
 	}
 }
 
@@ -101,7 +99,7 @@ int main()
 	root=construct();
 	int k;
 	scanf("%d", &k);
-	int t=depth(root, k);
-	printf("%d", --t);
+	int t=depth(root, k, 0);
+	printf("%d", t);
 	printf("\n");
 }

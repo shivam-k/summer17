@@ -63,7 +63,7 @@ node* construct()
 	j->right=g;
 
 	k=(node*)malloc(sizeof(node));
-	k->data=17;
+	k->data=170;
 	k->left=i;
 	k->right=j;
 

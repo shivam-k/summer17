@@ -101,7 +101,7 @@ int SmallestEven(node *head)
 					c=head->data;
 			}
 		}
-		printf("%d\n", c);
+		//printf("%d\n", c);
 		return c;
 
 	}

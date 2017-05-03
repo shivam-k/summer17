@@ -72,31 +72,27 @@ node* construct()
 	return k;
 }
 
-int height(node *head, int k, int x, int y)
+int SumFromRoot(node *head, int k)
 {
-	int a=0, b=0;
+	int a=0, b=0, sum;
 	if(head==NULL)
-		return x;
+		return 0;
 	else
 	{
 		if(head->data==k)
-			y=1;
-		int y1=x;
-		if(y==1)
+			return k;
+		a=SumFromRoot(head->left, k);
+		if(a!=0)
 		{
-			//printf("%d %d %d\n", x, y, head->data);
-			++y1;
+			sum=a+head->data;
+			return sum;
 		}
-		a=height(head->left, k, y1, y);
-		int y2=x;
-		if(y==1)
-			++y2;
-		b=height(head->right, k, y2, y);
-		
-		if(a>b)
-			b=a;
-
-		return b;
+		b=SumFromRoot(head->right, k);
+		if(b!=0)
+		{
+			sum=b+head->data;
+			return sum;
+		}
 	}
 }
 
@@ -106,7 +102,7 @@ int main()
 	root=construct();
 	int k;
 	scanf("%d", &k);
-	int t=height(root, k, 0, 0);
-	printf("%d", --t);
+	int t=SumFromRoot(root, k);
+	printf("\n%d", t);
 	printf("\n");
 }
